@@ -168,10 +168,10 @@ let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc ZipAll"
 nmap <leader>zc <action>(CollapseAllRegions)
 
 " c: Close ⭐️;
-let g:WhichKeyDesc_CloseBuffer = "<leader>c Close-Buffer"
+let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
+nmap <leader>c :q!<CR>
 nmap <leader>cr <action>(CloseAllToTheRight)
 nmap <leader>cl <action>(CloseAllToTheLeft)
-nmap <leader>c :q!<CR>
 
 " e: Toggle Explorer ⭐️
 let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e ToggleExplorer"
