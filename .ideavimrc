@@ -40,11 +40,18 @@ set timeoutlen=300
 " ================================================================================================
 " = No Leader Keymaps =====================================
 " ================================================================================================
+" 跳转到下一个错误的地方
 nmap ge <action>(GotoNextError)
+" 跳转到对应的测试类
 nmap gt <action>(GotoTest)
+" 在方法里会跳转到方法名，再gm会跳转到上面一个方法的方法名
 nmap gm <action>(MethodUp)
+" 跳转到对应的实现类
+nmap gi <action>(GotoImplementation)
 " last changed in current buffer(file)
 nmap ga '.
+" 返回操作
+nmap gb <action>(Back)
 
 " paste之后不会把yank的内容替换掉
 vmap p "_dp
@@ -68,8 +75,6 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
 
-
-
 " =================以上内容不需要使用leader键辅助使用，下面的键位需要leader键辅助，本人使用的是空格键作为leader=============================
 
 
@@ -81,7 +86,6 @@ let mapleader=" "
 " ================================================================================================
 set which-key
 set notimeout
-
 
 " f: 查找 ⭐️
 let g:WhichKeyDesc_FindOrFormat = "<leader>f FindOrFormat"
