@@ -2,8 +2,10 @@
 " 比如: String str = "123"，可以用cs"' 把双引号变成单引号
 Plug 'tpope/vim-surround'
 " 控制idea的左侧目录树，不过并没有很好用,可以用Alt+1呼出目录树，然后jk进行上下移动
-" 目录树也可以用p跳到当前目录的父级目录,目录树个人感觉支持的不是很好
+" 目录树也可以用p跳到当前目录的父级目录
+" <leader> e 打开目录树  q关闭目录树
 Plug 'preservim/nerdtree'
+
 " 可以快速跳转到你眼睛想去的地方，默认的话用leader键(空格)ss 然后输入你想到的位置的单词,然后就有提示字母，按下提示字母就可以进行跳转
 Plug 'easymotion/vim-easymotion'
 
@@ -171,22 +173,25 @@ nmap <leader>zo <action>(ExpandAllRegions)
 let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc ZipAll"
 nmap <leader>zc <action>(CollapseAllRegions)
 
-" c: Close ⭐️;
+" c: 关闭打开的文件 ⭐️;
+" <leader>cc: 关闭当前打开的Buffer
+" <leader>cl: 关闭当前打开的Buffer左侧的Buffer
+" <Leader>cr: 关闭当前打开的Buffer右侧的Buffer
 let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
 nmap <leader>c :q!<CR>
 nmap <leader>cr <action>(CloseAllToTheRight)
 nmap <leader>cl <action>(CloseAllToTheLeft)
 
-" e: Toggle Explorer ⭐️
+" e: 项目导航栏 ⭐️
 let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e ToggleExplorer"
 nmap <leader>e <action>(ActivateProjectToolWindow)
 
-" e: Extract
-" extract method/function
+" e: Extract,视觉模式下才起作用
+" 函数抽取
 vmap <leader>em <action>(ExtractMethod)
-" extract constant
+" 常量抽取
 vmap <leader>ec <action>(IntroduceConstant)
-" extract field
+" 字段抽取
 vmap <leader>ef <action>(IntroduceField)
-" extract variable
+" 变量抽取
 vmap <leader>ev <action>(IntroduceVariable)
