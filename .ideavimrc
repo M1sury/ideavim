@@ -33,6 +33,8 @@ set hlsearch
 
 " 高效编辑方法参数，比如caa,daa,vaa等，可以尝试
 set argtextobj
+" 使用 s 或者 S 然后跟着两个字符进行快速跳转，然后使用 ; 或者 , 重复之前的操作
+set sneak
 
 " 使用jk 和 kj 代替 ESC键(我已经习惯了ctrl+c了，有需要可以打开注释)
 " imap jk <Esc>
