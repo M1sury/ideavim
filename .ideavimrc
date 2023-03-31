@@ -19,6 +19,7 @@ Plug 'easymotion/vim-easymotion'
 " = 基础配置 =====================================
 " ================================================================================================
 set clipboard+=unnamed " ideavim的剪切板和系统的剪切板数据互通
+set showmode " 显示当前模式
 set ignorecase         " 不区分大小写
 set scrolloff=30
 set history=200
@@ -59,7 +60,7 @@ nmap ga '.
 nmap gb <action>(Back)
 
 " paste之后不会把yank的内容替换掉
-vmap p "_dp
+vmap p _dp
 
 " bookmark in whole program
 nmap ma mA
