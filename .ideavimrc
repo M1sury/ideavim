@@ -224,3 +224,6 @@ vmap <leader>ev <action>(IntroduceVariable)
 " maven/gradle 刷新项目
 let g:WhichKeyDesc_RefreshProject = "<leader>m RefreshProject";
 nmap <leader>ms <action>(ExternalSystem.ProjectRefreshAction)
+
+" 删除整个方法(但不包括方法上的注释)
+nnoremap dam :action MethodUp<cr>v0Of{%d
