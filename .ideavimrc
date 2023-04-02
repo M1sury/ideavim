@@ -36,6 +36,8 @@ set hlsearch
 set argtextobj
 " 使用 s 或者 S 然后跟着两个字符进行快速跳转，然后使用 ; 或者 , 重复之前的操作
 set sneak
+" 使用ctrl + j 可以把两个字符串进行拼接起来 "a" + "b"  -->  "ab"
+set ideajoin
 
 " 使用jk 和 kj 代替 ESC键(我已经习惯了ctrl+c了，有需要可以打开注释)
 " imap jk <Esc>
@@ -195,12 +197,12 @@ nmap <leader>zc <action>(CollapseAllRegions)
 " =====================================================================================
 
 " c: 关闭打开的文件 ⭐️;
-" <leader>cc: 关闭当前打开的Buffer
-" <leader>cl: 关闭当前打开的Buffer左侧的Buffer
-" <Leader>cr: 关闭当前打开的Buffer右侧的Buffer
 let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
+" <Leader>cc: 关闭当前打开的Buffer
 nmap <leader>c :q!<CR>
+" <Leader>cr: 关闭当前打开的Buffer右侧的Buffer
 nmap <leader>cr <action>(CloseAllToTheRight)
+" <leader>cl: 关闭当前打开的Buffer左侧的Buffer
 nmap <leader>cl <action>(CloseAllToTheLeft)
 
 " =====================================================================================
