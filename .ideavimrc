@@ -18,26 +18,22 @@ Plug 'easymotion/vim-easymotion'
 " ================================================================================================
 " = 基础配置 =====================================
 " ================================================================================================
-set clipboard+=unnamed " ideavim的剪切板和系统的剪切板数据互通
-set showmode " 显示当前模式
-set ignorecase         " 不区分大小写
+set clipboard+=unnamed     " ideavim的剪切板和系统的剪切板数据互通
+set showmode               " 显示当前模式
+set ignorecase             " 不区分大小写
 set scrolloff=30
 set history=200
+set number                 " number 是开启行号显示
+set relativenumber         " relativenumber是开启相对行号显示
 
-" number 是开启行号显示，relativenumber是开启相对行号显示
-set number
-set relativenumber
-
-" 搜索相关: hlsearch高亮搜索条件
-set incsearch
-set hlsearch
+set incsearch hlsearch     " 搜索相关: hlsearch高亮搜索条件
 
 " 高效编辑方法参数，比如caa,daa,vaa等，可以尝试
 set argtextobj
-" 使用 s 或者 S 然后跟着两个字符进行快速跳转，然后使用 ; 或者 , 重复之前的操作
-set sneak
-" 使用ctrl + j 可以把两个字符串进行拼接起来 "a" + "b"  -->  "ab"
-set ideajoin
+
+set sneak                 " 使用 s 或者 S 然后跟着两个字符进行快速跳转
+
+set ideajoin              " 使用ctrl + j 可以把两个字符串进行拼接起来
 
 " 使用jk 和 kj 代替 ESC键(我已经习惯了ctrl+c了，有需要可以打开注释)
 " imap jk <Esc>
@@ -48,6 +44,17 @@ set timeoutlen=300
 " ================================================================================================
 " = No Leader Keymaps =====================================
 " ================================================================================================
+" 插入模式下的移动
+" ctrl + hjkl 进行上下左右移动
+imap <C-h> <Left>
+imap <C-j> <Down>
+imap <C-k> <Up>
+imap <C-l> <Right>
+
+
+" paste之后不会把yank的内容替换掉
+vmap p _dp
+
 " 跳转到下一个错误的地方
 nmap ge <action>(GotoNextError)
 " 跳转到对应的测试类
@@ -60,9 +67,6 @@ nmap gi <action>(GotoImplementation)
 nmap ga '.
 " 返回操作
 nmap gb <action>(Back)
-
-" paste之后不会把yank的内容替换掉
-vmap p _dp
 
 " bookmark in whole program
 nmap ma mA
@@ -82,14 +86,6 @@ nmap dl d^
 " 普通模式下，打开的文件左右移动，L移动到左边打开的文件，H是右边
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
-
-" 插入模式下的移动
-" ctrl + hjkl 进行上下左右移动
-imap <C-h> <Left>
-imap <C-j> <Down>
-imap <C-k> <Up>
-imap <C-l> <Right>
-
 
 " =================以上内容不需要使用leader键辅助使用，下面的键位需要leader键辅助，本人使用的是空格键作为leader=============================
 
@@ -240,7 +236,7 @@ nmap dam :action MethodUp<cr>v0Of{%d
 " idea和vim的快捷键设置持久化
 sethandler <C-A> a:ide
 sethandler <C-C> a:vim
-sethandler <C-F> a:vim
+sethandler <C-F> a:ide
 sethandler <C-G> a:ide
 sethandler <C-P> a:vim
 sethandler <C-Q> a:vim
