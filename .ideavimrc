@@ -74,16 +74,21 @@ nmap 'd 'D
 nmap mf mF
 nmap 'f 'F
 
+" 删除从当前字符到结尾的内容
+nmap df d$
+" 删除从当前字符到开始的内容
+nmap dl d^
+
 " 普通模式下，打开的文件左右移动，L移动到左边打开的文件，H是右边
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
 
 " 插入模式下的移动
 " ctrl + hjkl 进行上下左右移动
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
+imap <C-h> <Left>
+imap <C-j> <Down>
+imap <C-k> <Up>
+imap <C-l> <Right>
 
 
 " =================以上内容不需要使用leader键辅助使用，下面的键位需要leader键辅助，本人使用的是空格键作为leader=============================
@@ -174,16 +179,16 @@ nmap <leader>rn <action>(RenameElement)
 " =====================================================================================
 
 " w: 窗口分割，跳转 ⭐️
-nnoremap <leader>ww <C-W>w
-nnoremap <leader>wd <C-W>c
-nnoremap <leader>wj <C-W>j
-nnoremap <leader>wk <C-W>k
-nnoremap <leader>wh <C-W>h
-nnoremap <leader>wl <C-W>l
-nnoremap <leader>ws <C-W>s
-nnoremap <leader>w- <C-W>s
-noremap <leader>wv <C-W>v
-nnoremap <leader>w\| <C-W>v
+nmap <leader>ww <C-W>w
+nmap <leader>wd <C-W>c
+nmap <leader>wj <C-W>j
+nmap <leader>wk <C-W>k
+nmap <leader>wh <C-W>h
+nmap <leader>wl <C-W>l
+nmap <leader>ws <C-W>s
+nmap <leader>w- <C-W>s
+nmap <leader>wv <C-W>v
+nmap <leader>w\| <C-W>v
 
 " =====================================================================================
 
@@ -204,6 +209,8 @@ nmap <leader>c :q!<CR>
 nmap <leader>cr <action>(CloseAllToTheRight)
 " <leader>cl: 关闭当前打开的Buffer左侧的Buffer
 nmap <leader>cl <action>(CloseAllToTheLeft)
+" <leader>ce: 关闭除了当前Buffer外其他被打开的Buffer
+nmap <leader>ce <action>(CloseAllEditorsButActive)
 
 " =====================================================================================
 
@@ -228,4 +235,16 @@ let g:WhichKeyDesc_RefreshProject = "<leader>m RefreshProject";
 nmap <leader>ms <action>(ExternalSystem.ProjectRefreshAction)
 
 " 删除整个方法(但不包括方法上的注释)
-nnoremap dam :action MethodUp<cr>v0Of{%d
+nmap dam :action MethodUp<cr>v0Of{%d
+
+" idea和vim的快捷键设置持久化
+sethandler <C-A> a:ide
+sethandler <C-C> a:vim
+sethandler <C-F> a:vim
+sethandler <C-G> a:ide
+sethandler <C-P> a:vim
+sethandler <C-Q> a:vim
+sethandler <C-R> a:vim
+sethandler <C-S> a:vim
+sethandler <C-U> a:vim
+sethandler <C-V> a:vim
