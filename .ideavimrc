@@ -1,45 +1,29 @@
-" ================插件====================
-" 比如: String str = "123"，可以用cs"' 把双引号变成单引号
+" ================================================================================================
+" = 插件 =====================================
+" ================================================================================================
 Plug 'tpope/vim-surround'
-
-" 使用<leader> e 目录树呼出
-" q关闭打开的目录树
-" p跳转到当前目录的父级目录
-" x关闭当前目录打开的文件夹
-" J当前目录下多个文件/文件夹跳转到最下面的文件/文件夹
-" K当前目录下多个文件/文件夹跳转到最上面的文件/文件夹
-" o打开当前光标所在的文件/文件夹
 Plug 'preservim/nerdtree'
-
-" 可以快速跳转到你眼睛想去的地方，默认的话用leader键(空格)ss 然后输入你想到的位置的单词,然后就有提示字母，按下提示字母就可以进行跳转
 Plug 'easymotion/vim-easymotion'
-
 
 " ================================================================================================
 " = 基础配置 =====================================
 " ================================================================================================
 set clipboard+=unnamed     " ideavim的剪切板和系统的剪切板数据互通
-set showmode               " 显示当前模式
-set ignorecase             " 不区分大小写
+set showmode
+set ignorecase
 set scrolloff=30
 set history=200
-set number                 " number 是开启行号显示
-set relativenumber         " relativenumber是开启相对行号显示
+set number
+" set relativenumber
 
-set incsearch hlsearch     " 搜索相关: hlsearch高亮搜索条件
-
-" 高效编辑方法参数，比如caa,daa,vaa等，可以尝试
-set argtextobj
-
+set incsearch hlsearch
+set argtextobj            " 高效编辑方法参数，比如caa,daa,vaa等，可以尝试
 set sneak                 " 使用 s 或者 S 然后跟着两个字符进行快速跳转
-
 set ideajoin              " 使用ctrl + j 可以把两个字符串进行拼接起来
+set timeoutlen=0
 
-" 使用jk 和 kj 代替 ESC键(我已经习惯了ctrl+c了，有需要可以打开注释)
-" imap jk <Esc>
-" imap kj <Esc>
-set timeoutlen=300
-
+set which-key
+set notimeout
 
 " ================================================================================================
 " = No Leader Keymaps =====================================
@@ -52,23 +36,22 @@ imap <C-k> <Up>
 imap <C-l> <Right>
 
 
-" paste之后不会把yank的内容替换掉
-vmap p _dp
-
-" 跳转到下一个错误的地方
+" 跳转下一个错误
 nmap ge <action>(GotoNextError)
-" 跳转到对应的测试类
+" 跳转测试类
 nmap gt <action>(GotoTest)
-" 在方法里会跳转到方法名，再gm会跳转到上面一个方法的方法名
+" 跳转到该方法的方法名
 nmap gm <action>(MethodUp)
-" 跳转到对应的实现类
+" 跳转到下一个方法的方法名
+nmap gn <action>(MethodDown)
+" 跳转实现
 nmap gi <action>(GotoImplementation)
-" last changed in current buffer(file)
+" 打开当前行的修改记录
 nmap ga '.
-" 返回操作
+" 返回
 nmap gb <action>(Back)
 
-" bookmark in whole program
+" 书签
 nmap ma mA
 nmap 'a 'A
 nmap ms mS
@@ -78,54 +61,76 @@ nmap 'd 'D
 nmap mf mF
 nmap 'f 'F
 
-" 删除从当前字符到结尾的内容
 nmap df d$
-" 删除从当前字符到开始的内容
 nmap dl d^
+" 删除整个方法(但不包括方法上的注释)
+nmap dam :action MethodUp<cr>v0Of{%d
+
+" paste之后不会把yank的内容替换掉
+vmap p _dp
+
 
 " 普通模式下，打开的文件左右移动，L移动到左边打开的文件，H是右边
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
 
+" 找到上一个或下一个突出高亮
+nmap <C-j> <action>(GotoNextElementUnderCaretUsage)
+nmap <C-k> <action>(GotoPrevElementUnderCaretUsage)
+
 " =================以上内容不需要使用leader键辅助使用，下面的键位需要leader键辅助，本人使用的是空格键作为leader=============================
-
-
 " leaderkey
 let mapleader=" "
-
-" ================================================================================================
-" 👻👻👻 Which-Key 👻👻👻
-set which-key
-set notimeout
 
 " ================================================================================================
 
 " f: 查找 ⭐️
 let g:WhichKeyDesc_FindOrFormat = "<leader>f FindOrFormat"
+
+" 文件搜索
 let g:WhichKeyDesc_FindOrFormat_FindFile = "<leader>ff FindFile"
 nmap <leader>ff <action>(GotoFile)
-let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
-nmap <leader>fl <action>(SelectInProjectView)
 
+" 文本搜索
 let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>ft FindText"
 nmap <leader>ft <action>(FindInPath)
 
+" 定位当前文件在项目中的位置
+let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
+nmap <leader>fl <action>(SelectInProjectView)
+
+" action搜索
 let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc Commands"
 nmap <leader>fc <action>(GotoAction)
 
-let g:WhichKeyDesc_FindOrFormat_OpenedProject = "<leader>fp OpenedProject"
-nmap <leader>fp <action>(OpenProjectWindows)
-
+" 代码格式化
 let g:WhichKeyDesc_FindOrFormat_Format = "<leader>fm Format"
 nmap <leader>fm <action>(ReformatCode) \| <action>(OptimizeImports)
+
+" ================================================================================================
+
+" p: 项目切换 ⭐️
+" 切换到前一个项目
+let g:WhichKeyDesc_FindOrFormat_PreviousProject = "<leader>pa PreviousProject"
+nmap <leader>pa <action>(PreviousProjectWindows)
+
+" 切换到前一个项目
+let g:WhichKeyDesc_FindOrFormat_NextProject = "<leader>pa NextProject"
+nmap <leader>pa <action>(NextProjectWindows)
 
 " =====================================================================================
 
 " g: Git ⭐️
 let g:WhichKeyDesc_Git = "<leader>g Git"
-let g:WhichKeyDesc_Git_RollbackHunk = "<leader>gr RollbackHunk"
-nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
 
+let g:WhichKeyDesc_Git_RollbackHunk = "<leader>gr RollbackHunk"
+nmap <leader>gr <action>(Vcs.RollbackChangedLines)
+
+let g:WhichKeyDesc_Git_Pull = "<leader>gr Pull"
+nmap <leader>gu <action>(Git.Pull)
+
+let g:WhichKeyDesc_Git_ShowBranch = "<leader>gs Git.Branches"
+nmap <leader>ga <action>(Git.Branches)
 
 " =====================================================================================
 
@@ -154,6 +159,7 @@ let g:WhichKeyDesc_Show = "<leader>s Show"
 let g:WhichKeyDesc_Show_FileStructue = "<leader>ss ShowFileStructure"
 nmap <leader>ss <action>(FileStructurePopup)
 
+" 展示当前项目下创建的备注
 let g:WhichKeyDesc_Show_Bookmarks = "<leader>sb ShowBookmarks"
 nmap <leader>sb <action>(ShowBookmarks)
 
@@ -190,8 +196,10 @@ nmap <leader>w\| <C-W>v
 
 " z: zip(fold) ⭐️
 let g:WhichKeyDesc_Zip = "<leader>z Zip"
+
 let g:WhichKeyDesc_Zip_unZipAll = "<leader>zo unZipAll"
 nmap <leader>zo <action>(ExpandAllRegions)
+
 let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc ZipAll"
 nmap <leader>zc <action>(CollapseAllRegions)
 
@@ -199,14 +207,21 @@ nmap <leader>zc <action>(CollapseAllRegions)
 
 " c: 关闭打开的文件 ⭐️;
 let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
+
 " <Leader>cc: 关闭当前打开的Buffer
 nmap <leader>c :q!<CR>
-" <Leader>cr: 关闭当前打开的Buffer右侧的Buffer
+
+let g:WhichKeyDesc_Close_Right = "<leader>cr CloseAllToTheRight"
 nmap <leader>cr <action>(CloseAllToTheRight)
-" <leader>cl: 关闭当前打开的Buffer左侧的Buffer
+
+let g:WhichKeyDesc_Close_Left = "<leader>cl CloseAllToTheLeft"
 nmap <leader>cl <action>(CloseAllToTheLeft)
-" <leader>ce: 关闭除了当前Buffer外其他被打开的Buffer
+
 nmap <leader>ce <action>(CloseAllEditorsButActive)
+
+" 复制文件名称或路径
+nmap <leader>cp <action>(CopyAbsolutePath)
+nmap <leader>cn <action>(CopyFileName)
 
 " =====================================================================================
 
@@ -226,21 +241,31 @@ vmap <leader>ev <action>(IntroduceVariable)
 
 " =====================================================================================
 
+" m: 项目依赖工具: maven,gradle通用
 " maven/gradle 刷新项目
 let g:WhichKeyDesc_RefreshProject = "<leader>m RefreshProject";
+
 nmap <leader>ms <action>(ExternalSystem.ProjectRefreshAction)
 
-" 删除整个方法(但不包括方法上的注释)
-nmap dam :action MethodUp<cr>v0Of{%d
+" =====================================================================================
 
-" idea和vim的快捷键设置持久化
+" t: 打开或关闭窗口
+map <Leader>to <action>(ActivateTODOToolWindow)
+
+map <Leader>ta <action>(HideActivateWindow)
+
+map <leader>tt <action>(ActivateTerminalToolWindow)
+
+
+" ================================================================================================
+" = ide与vim的快捷键持久化 =====================================
+" ================================================================================================
 sethandler <C-A> a:ide
 sethandler <C-C> a:vim
 sethandler <C-F> a:ide
 sethandler <C-G> a:ide
 sethandler <C-P> a:vim
 sethandler <C-Q> a:vim
-sethandler <C-R> a:vim
+sethandler <C-R> a:ide
 sethandler <C-S> a:vim
-sethandler <C-U> a:vim
 sethandler <C-V> a:vim
