@@ -129,6 +129,9 @@ nmap <leader>gr <action>(Vcs.RollbackChangedLines)
 let g:WhichKeyDesc_Git_Pull = "<leader>gr Pull"
 nmap <leader>gu <action>(Git.Pull)
 
+let g:WhichKeyDesc_Git_Pull = "<leader>gp Push"
+nmap <leader>gp <action>(Vcs.Push)
+
 let g:WhichKeyDesc_Git_ShowBranch = "<leader>gs Git.Branches"
 nmap <leader>ga <action>(Git.Branches)
 
