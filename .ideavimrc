@@ -68,7 +68,8 @@ nmap dam :action MethodUp<cr>v0Of{%d
 
 " paste之后不会把yank的内容替换掉
 vmap p _dp
-
+" v模式下快速选择文本
+vmap t <action>(EditorSelectWord)
 
 " 普通模式下，打开的文件左右移动，L移动到左边打开的文件，H是右边
 nmap L <action>(NextTab)
