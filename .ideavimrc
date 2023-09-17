@@ -258,8 +258,11 @@ map <Leader>to <action>(ActivateTODOToolWindow)
 
 map <Leader>ta <action>(HideActivateWindow)
 
-map <leader>tt <action>(ActivateTerminalToolWindow)
+" 打开控制台
+map <leader>tc <action>(ActivateTerminalToolWindow)
 
+" 生成构造器
+map <leader>tt <action>(GenerateConstructor)
 
 " ================================================================================================
 " = ide与vim的快捷键持久化 =====================================
