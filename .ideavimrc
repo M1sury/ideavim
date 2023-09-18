@@ -47,7 +47,7 @@ nmap gn <action>(MethodDown)
 " 跳转实现
 nmap gi <action>(GotoImplementation)
 " 打开当前行的修改记录
-nmap ga '.
+nmap ga <action>(Annotate)
 " 返回
 nmap gb <action>(Back)
 
@@ -216,12 +216,12 @@ let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
 nmap <leader>c :q!<CR>
 
 let g:WhichKeyDesc_Close_Right = "<leader>cr CloseAllToTheRight"
-nmap <leader>cr <action>(CloseAllToTheRight)
+nmap cr <action>(CloseAllToTheRight)
 
 let g:WhichKeyDesc_Close_Left = "<leader>cl CloseAllToTheLeft"
-nmap <leader>cl <action>(CloseAllToTheLeft)
+nmap cl <action>(CloseAllToTheLeft)
 
-nmap <leader>ce <action>(CloseAllEditorsButActive)
+nmap ce <action>(CloseAllEditorsButActive)
 
 " 复制文件名称或路径
 nmap <leader>cp <action>(CopyAbsolutePath)
