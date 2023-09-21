@@ -70,7 +70,8 @@ nmap dam :action MethodUp<cr>v0Of{%d
 vmap p _dp
 " v模式下快速选择文本
 vmap t <action>(EditorSelectWord)
-
+" 翻译
+vmap <leader>tt <action>($EditorTranslateAction)
 " 普通模式下，打开的文件左右移动，L移动到左边打开的文件，H是右边
 nmap L <action>(NextTab)
 nmap H <action>(PreviousTab)
@@ -276,3 +277,4 @@ sethandler <C-Q> a:vim
 sethandler <C-R> a:ide
 sethandler <C-S> a:vim
 sethandler <C-V> a:vim
+sethandler <C-k> a:vim
