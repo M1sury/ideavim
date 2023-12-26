@@ -168,9 +168,9 @@ nmap <leader>ss <action>(FileStructurePopup)
 let g:WhichKeyDesc_Show_Bookmarks = "<leader>sb ShowBookmarks"
 nmap <leader>sb <action>(ShowBookmarks)
 
-" 查看controller路径所在的方法位置,需要配合idea插件RestfulTool使用
+" 查看controller路径所在的方法位置,需要配合idea插件Api-Post-Helper 2.0使用
 let g:WhichKeyDesc_GotoRequestService = "<leader>sp GotoRequestService"
-nmap <leader>sp <action>(Tool.GotoRequestService)
+nmap <leader>sp <action>(Toolkit.GotoServiceV2)
 
 " =====================================================================================
 
