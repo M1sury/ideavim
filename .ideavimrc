@@ -269,6 +269,9 @@ map <leader>tc <action>(ActivateTerminalToolWindow)
 " 生成构造器
 map <leader>tt <action>(GenerateConstructor)
 
+" 使用vo2dto插件
+map <leader>tl <action>(Vo2DtoGenerateAction)
+
 " ================================================================================================
 " = ide与vim的快捷键持久化 =====================================
 " ================================================================================================
@@ -276,6 +279,8 @@ sethandler <C-A> a:ide
 sethandler <C-C> a:vim
 sethandler <C-F> a:ide
 sethandler <C-G> a:ide
+sethandler <C-I> a:ide
+sethandler <C-O> a:ide
 sethandler <C-P> a:vim
 sethandler <C-Q> a:vim
 sethandler <C-R> a:ide
