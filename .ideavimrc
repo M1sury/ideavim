@@ -87,6 +87,9 @@ nmap <leader>fc <action>(GotoAction)
 " 代码格式化
 nmap <leader>fm <action>(ReformatCode) \| <action>(OptimizeImports)
 
+" 查看controller路径所在的方法位置,需要配合idea插件RestfulTool使用
+nmap <leader>fp <action>(Toolkit.GotoServiceV2)
+
 " ================================================================================================
 
 " p: 项目切换 ⭐️
@@ -132,8 +135,6 @@ nmap <leader>ss <action>(FileStructurePopup)
 " 展示当前项目下创建的备注
 nmap <leader>sb <action>(ShowBookmarks)
 
-" 查看controller路径所在的方法位置,需要配合idea插件RestfulTool使用
-nmap <leader>sp <action>(Tool.GotoRequestService)
 
 " =====================================================================================
 
