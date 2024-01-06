@@ -15,60 +15,44 @@ set scrolloff=30
 set history=200
 set number
 " set relativenumber
-
 set incsearch hlsearch
 set argtextobj            " 高效编辑方法参数，比如caa,daa,vaa等，可以尝试
 set sneak                 " 使用 s 或者 S 然后跟着两个字符进行快速跳转
 set ideajoin              " 使用ctrl + j 可以把两个字符串进行拼接起来
 set timeoutlen=0
-
 set which-key
 set notimeout
 
 " ================================================================================================
 " = No Leader Keymaps =====================================
 " ================================================================================================
-" 插入模式下的移动
-" ctrl + hjkl 进行上下左右移动
+" 插入模式下的映射
 imap <C-h> <Left>
 imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
 
-
-" 跳转下一个错误
+" 普通模式下的映射
 nmap ge <action>(GotoNextError)
-" 跳转测试类
 nmap gt <action>(GotoTest)
-" 跳转到该方法的方法名
 nmap gm <action>(MethodUp)
-" 跳转到下一个方法的方法名
 nmap gn <action>(MethodDown)
-" 跳转实现
 nmap gi <action>(GotoImplementation)
-" 打开当前行的修改记录
 nmap ga <action>(Annotate)
-" 返回
 nmap gb <action>(Back)
 
 " 书签
 nmap ma mA
-nmap 'a 'A
-nmap ms mS
-nmap 's 'S
-nmap md mD
-nmap 'd 'D
-nmap mf mF
-nmap 'f 'F
+nmap <leader>mo <action>(GotoBookmark0)
+nmap <leader>go m0
 
+" 删除相关
 nmap df d$
 nmap dl d^
-" 删除整个方法(但不包括方法上的注释)
-nmap dam :action MethodUp<cr>v0Of{%d
+nmap dam <action>(MethodUp)v0Of{%d
 
 " paste之后不会把yank的内容替换掉
 vmap p _dp
-" v模式下快速选择文本
 vmap t <action>(EditorSelectWord)
 " 翻译
 vmap <leader>tt <action>($EditorTranslateAction)
@@ -87,173 +71,141 @@ let mapleader=" "
 " ================================================================================================
 
 " f: 查找 ⭐️
-let g:WhichKeyDesc_FindOrFormat = "<leader>f FindOrFormat"
 
 " 文件搜索
-let g:WhichKeyDesc_FindOrFormat_FindFile = "<leader>ff FindFile"
 nmap <leader>ff <action>(GotoFile)
 
 " 文本搜索
-let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>ft FindText"
 nmap <leader>ft <action>(FindInPath)
 
 " 定位当前文件在项目中的位置
-let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
 nmap <leader>fl <action>(SelectInProjectView)
 
 " action搜索
-let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc Commands"
 nmap <leader>fc <action>(GotoAction)
 
 " 代码格式化
-let g:WhichKeyDesc_FindOrFormat_Format = "<leader>fm Format"
 nmap <leader>fm <action>(ReformatCode) \| <action>(OptimizeImports)
 
 " ================================================================================================
 
 " p: 项目切换 ⭐️
 " 切换到前一个项目
-let g:WhichKeyDesc_FindOrFormat_PreviousProject = "<leader>pa PreviousProject"
 nmap <leader>pa <action>(PreviousProjectWindows)
 
 " 切换到前一个项目
-let g:WhichKeyDesc_FindOrFormat_NextProject = "<leader>pa NextProject"
 nmap <leader>pa <action>(NextProjectWindows)
 
 " =====================================================================================
 
 " g: Git ⭐️
-let g:WhichKeyDesc_Git = "<leader>g Git"
-
-let g:WhichKeyDesc_Git_RollbackHunk = "<leader>gr RollbackHunk"
 nmap <leader>gr <action>(Vcs.RollbackChangedLines)
 
-let g:WhichKeyDesc_Git_Pull = "<leader>gr Pull"
 nmap <leader>gu <action>(Git.Pull)
 
-let g:WhichKeyDesc_Git_Pull = "<leader>gp Push"
 nmap <leader>gp <action>(Vcs.Push)
 
-let g:WhichKeyDesc_Git_ShowBranch = "<leader>gs Git.Branches"
 nmap <leader>ga <action>(Git.Branches)
 
 " =====================================================================================
 
 " i: Insert ⭐️
-let g:WhichKeyDesc_InsertAfterBrackets = "<leader>i InsertAfterBrackets"
 nmap <leader>i f(a
 
 " =====================================================================================
 
 " j: add Semicolon and goto nextline⭐️
-let g:WhichKeyDesc_InsertSemicolon = "<leader>j InsertSemicolon"
-nmap <leader>j A;<ESC>o
+" nmap <leader>j A;<ESC>o
 
 " =====================================================================================
 
 " n: 取消高亮 ⭐️
-let g:WhichKeyDesc_No_Highlight = "<leader>nl NoHighlight"
 nmap <leader>nl :nohlsearch<CR>
 
 " =====================================================================================
 
 " s: Show ⭐️
-let g:WhichKeyDesc_Show = "<leader>s Show"
 
 " 展示文件结构(函数和成员变量等等)
-let g:WhichKeyDesc_Show_FileStructue = "<leader>ss ShowFileStructure"
 nmap <leader>ss <action>(FileStructurePopup)
 
 " 展示当前项目下创建的备注
-let g:WhichKeyDesc_Show_Bookmarks = "<leader>sb ShowBookmarks"
 nmap <leader>sb <action>(ShowBookmarks)
 
-" 查看controller路径所在的方法位置,需要配合idea插件Api-Post-Helper 2.0使用
-let g:WhichKeyDesc_GotoRequestService = "<leader>sp GotoRequestService"
-nmap <leader>sp <action>(Toolkit.GotoServiceV2)
+" 查看controller路径所在的方法位置,需要配合idea插件RestfulTool使用
+nmap <leader>sp <action>(Tool.GotoRequestService)
 
 " =====================================================================================
 
 " r: Run/Re ⭐️
-let g:WhichKeyDesc_RunOrRe = "<leader>r RunOrRe"
-
-let g:WhichKeyDesc_RunOrRe_ReRun = "<leader>rr ReRun"
 nmap <leader>rr <action>(Rerun)
 
-let g:WhichKeyDesc_RunOrRe_ReRunTests = "<leader>rt ReRunTests"
 nmap <leader>rt <action>(RerunTests)
 
 " 对选中的元素(函数/变量)进行重命名操作
-let g:WhichKeyDesc_RunOrRe_Rename = "<leader>rn Rename"
 nmap <leader>rn <action>(RenameElement)
+
+" ideavim配置文件重载
+nmap <leader>rs <action>(IdeaVim.ReloadVimRc.reload)
+
+" 选择debug配置
+nmap <leader>rc :action ChooseDebugConfiguration<CR>
 
 " =====================================================================================
 
-" w: 窗口分割，跳转 ⭐️
-nmap <leader>ww <C-W>w
-nmap <leader>wd <C-W>c
-nmap <leader>wj <C-W>j
-nmap <leader>wk <C-W>k
-nmap <leader>wh <C-W>h
-nmap <leader>wl <C-W>l
-nmap <leader>ws <C-W>s
-nmap <leader>w- <C-W>s
-nmap <leader>wv <C-W>v
-nmap <leader>w\| <C-W>v
+" w: 窗口分割，跳转 ⭐️(本人不常用，有需要可以打开注释)
+" nmap <leader>ww <C-W>w
+" nmap <leader>wd <C-W>c
+" nmap <leader>wj <C-W>j
+" nmap <leader>wk <C-W>k
+" nmap <leader>wh <C-W>h
+" nmap <leader>wl <C-W>l
+" nmap <leader>ws <C-W>s
+" nmap <leader>w- <C-W>s
+" nmap <leader>wv <C-W>v
+" nmap <leader>w\| <C-W>v
 
 " =====================================================================================
 
 " z: zip(fold) ⭐️
-let g:WhichKeyDesc_Zip = "<leader>z Zip"
-
-let g:WhichKeyDesc_Zip_unZipAll = "<leader>zo unZipAll"
 nmap <leader>zo <action>(ExpandAllRegions)
 
-let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc ZipAll"
 nmap <leader>zc <action>(CollapseAllRegions)
 
 " =====================================================================================
 
 " c: 关闭打开的文件 ⭐️;
-let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
-
-" <Leader>cc: 关闭当前打开的Buffer
 nmap <leader>c :q!<CR>
 
-let g:WhichKeyDesc_Close_Right = "<leader>cr CloseAllToTheRight"
 nmap cr <action>(CloseAllToTheRight)
 
-let g:WhichKeyDesc_Close_Left = "<leader>cl CloseAllToTheLeft"
 nmap cl <action>(CloseAllToTheLeft)
 
 nmap ce <action>(CloseAllEditorsButActive)
 
 " 复制文件名称或路径
 nmap <leader>cp <action>(CopyAbsolutePath)
+
 nmap <leader>cn <action>(CopyFileName)
 
 " =====================================================================================
 
 " e: 项目导航栏 ⭐️
-let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e ToggleExplorer"
 nmap <leader>e <action>(ActivateProjectToolWindow)
 
 " e: Extract,视觉模式下才起作用
-" 函数抽取
 vmap <leader>em <action>(ExtractMethod)
-" 常量抽取
+
 vmap <leader>ec <action>(IntroduceConstant)
-" 字段抽取
+
 vmap <leader>ef <action>(IntroduceField)
-" 变量抽取
+
 vmap <leader>ev <action>(IntroduceVariable)
 
 " =====================================================================================
 
 " m: 项目依赖工具: maven,gradle通用
 " maven/gradle 刷新项目
-let g:WhichKeyDesc_RefreshProject = "<leader>m RefreshProject";
-
 nmap <leader>ms <action>(ExternalSystem.ProjectRefreshAction)
 
 " =====================================================================================
@@ -263,14 +215,9 @@ map <Leader>to <action>(ActivateTODOToolWindow)
 
 map <Leader>ta <action>(HideActivateWindow)
 
-" 打开控制台
 map <leader>tc <action>(ActivateTerminalToolWindow)
 
-" 生成构造器
 map <leader>tt <action>(GenerateConstructor)
-
-" 使用vo2dto插件
-map <leader>tl <action>(Vo2DtoGenerateAction)
 
 " ================================================================================================
 " = ide与vim的快捷键持久化 =====================================
@@ -279,11 +226,67 @@ sethandler <C-A> a:ide
 sethandler <C-C> a:vim
 sethandler <C-F> a:ide
 sethandler <C-G> a:ide
+sethandler <C-P> a:vim
 sethandler <C-I> a:ide
 sethandler <C-O> a:ide
-sethandler <C-P> a:vim
 sethandler <C-Q> a:vim
 sethandler <C-R> a:ide
 sethandler <C-S> a:vim
 sethandler <C-V> a:vim
-sethandler <C-k> a:vim
+sethandler <C-H> a:vim
+
+" ================================================================================================
+" = which-key =====================================
+" ================================================================================================
+
+" 查找类功能
+let g:WhichKeyDesc_FindOrFormat = "<leader>f FindOrFormat"
+let g:WhichKeyDesc_FindOrFormat_FindFile = "<leader>ff FindFile"
+let g:WhichKeyDesc_FindOrFormat_FindText = "<leader>ft FindText"
+let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
+let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc Commands"
+let g:WhichKeyDesc_FindOrFormat_Format = "<leader>fm Format"
+let g:WhichKeyDesc_GotoRequestService = "<leader>fp GotoRequestService"
+
+" 切换项目
+let g:WhichKeyDesc_FindOrFormat_PreviousProject = "<leader>pa PreviousProject"
+let g:WhichKeyDesc_FindOrFormat_NextProject = "<leader>pa NextProject"
+
+" Git相关
+let g:WhichKeyDesc_Git = "<leader>g Git"
+let g:WhichKeyDesc_Git_RollbackHunk = "<leader>gr RollbackHunk"
+let g:WhichKeyDesc_Git_Pull = "<leader>gr Pull"
+let g:WhichKeyDesc_Git_Pull = "<leader>gp Push"
+let g:WhichKeyDesc_Git_ShowBranch = "<leader>gs Git.Branches"
+
+" 插入相关
+let g:WhichKeyDesc_InsertAfterBrackets = "<leader>i InsertAfterBrackets"
+let g:WhichKeyDesc_InsertSemicolon = "<leader>j InsertSemicolon"
+
+" 取消高亮
+let g:WhichKeyDesc_No_Highlight = "<leader>nl NoHighlight"
+
+" 展示类功能
+let g:WhichKeyDesc_Show = "<leader>s Show"
+let g:WhichKeyDesc_Show_FileStructure = "<leader>ss ShowFileStructure"
+let g:WhichKeyDesc_Show_Bookmarks = "<leader>sb ShowBookmarks"
+
+" 运行/重构相关
+let g:WhichKeyDesc_RunOrRe = "<leader>r RunOrRe"
+let g:WhichKeyDesc_RunOrRe_ReRun = "<leader>rr ReRun"
+let g:WhichKeyDesc_RunOrRe_ReRunTests = "<leader>rt ReRunTests"
+let g:WhichKeyDesc_RunOrRe_Rename = "<leader>rn Rename"
+let g:WhichKeyDesc_IdeaVim_Reload = "<leader>rs ConfigReload"
+
+" 压缩解压：指的是代码块在idea中的压缩和解压
+let g:WhichKeyDesc_Zip = "<leader>z Zip"
+let g:WhichKeyDesc_Zip_unZipAll = "<leader>zo unZipAll"
+let g:WhichKeyDesc_Zip_ZipAll = "<leader>zc ZipAll"
+
+" 关闭/切换文件Buffer
+let g:WhichKeyDesc_CloseBuffer = "<leader>c CloseBuffer"
+let g:WhichKeyDesc_Close_Right = "<leader>cr CloseAllToTheRight"
+let g:WhichKeyDesc_Close_Left = "<leader>cl CloseAllToTheLeft"
+
+" nerdTree
+let g:WhichKeyDesc_ToggleExplorerOrExtract = "<leader>e ToggleExplorer"
